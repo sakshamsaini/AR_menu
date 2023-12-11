@@ -8,24 +8,24 @@
   <body>
     <label for="modelSelector">Select a 3D Model:</label>
     <select id="modelSelector" onchange="changeModel()">
-        <option value="/Assets/models/biryani.glb">Briyani</option>
-        <option value="/Assets/models/brazil.glb">Brazil Food</option>
-        <option value="/Assets/models/breakfast.glb">Breakfast Food</option>
-        <option value="/Assets/models/burger.glb">Burger</option>
-        <option value="/Assets/models/cappuccino.glb">Cappuccino</option>
-        <option value="/Assets/models/dal.glb">Dal Takda and Naan</option>
-        <option value="/Assets/models/french.glb">French Fries</option>
-        <option value="/Assets/models/momo.glb">Momos</option>
-        <option value="/Assets/models/pizza.glb">Pizza</option>
-        <option value="/Assets/models/sandwich.glb">Sandwich</option>
-        <option value="/Assets/models/cake.glb">Strawberry Cake</option>
-        <option value="/Assets/models/chicken.glb">Tandoori Chicken</option>
+        <option value="./Assets/models/biryani.glb">Briyani</option>
+        <option value="./Assets/models/brazil.glb">Brazil Food</option>
+        <option value="./Assets/models/breakfast.glb">Breakfast Food</option>
+        <option value="./Assets/models/burger.glb">Burger</option>
+        <option value="./Assets/models/cappuccino.glb">Cappuccino</option>
+        <option value="./Assets/models/dal.glb">Dal Takda and Naan</option>
+        <option value="./Assets/models/french.glb">French Fries</option>
+        <option value="./Assets/models/momo.glb">Momos</option>
+        <option value="./Assets/models/pizza.glb">Pizza</option>
+        <option value="./Assets/models/sandwich.glb">Sandwich</option>
+        <option value="./Assets/models/cake.glb">Strawberry Cake</option>
+        <option value="./Assets/models/chicken.glb">Tandoori Chicken</option>
       <!-- Add more options as needed -->
     </select>
 
     <a-scene mindar-image="imageTargetSrc: Assets/targets.mind;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
       <a-assets>
-        <a-asset-item id="Model" src="/Assets/models/biryani.glb"></a-asset-item>
+        <a-asset-item id="Model" src="./Assets/models/biryani.glb"></a-asset-item>
       </a-assets>
 
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
