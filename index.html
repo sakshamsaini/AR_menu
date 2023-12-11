@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AR URL Switcher</title>
+
+    <!-- A-Frame and MindAR.js libraries -->
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://mindar-web.oss-cn-hangzhou.aliyuncs.com/mindar-0.9.4.js"></script>
+</head>
+<body>
+
+    <!-- AR Scene -->
+    <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
+        <!-- Marker for MindAR.js -->
+        <a-marker preset="hiro">
+            <!-- Content to be displayed when marker is detected -->
+            <a-box position="0 0.5 0" material="color: yellow;"></a-box>
+        </a-marker>
+
+        <!-- Switchable URL based on dropdown selection -->
+        <a-entity id="urlContainer">
+            <!-- Default URL (change this as needed) -->
+            <a-entity id="defaultContent" geometry="primitive: plane; width: 5; height: 3" material="color: white" position="0 2 -5">
+                <a-text value="Default Content" align="center" position="0 0 0.1" color="black"></a-text>
+            </a-entity>
+
+            <!-- URL content loaded dynamically -->
+            <a-entity id="dynamicContent" geometry="primitive: plane; width: 5; height: 3" material="color: white" position="0 2 -5" visible="false">
+                <a-text id="dynamicText" align="center" position="0 0 0.1" color="black"></a-text>
+            </a-entity>
+        </a-entity>
+    </a-scene>
+
+    <!-- Dropdown for URL selection -->
+    <label for="urlSelector">Select a URL:</label>
+    <select id="urlSelector" onchange="changeURL()">
+        <option value="https://www.example1.com">Example 1</option>
+        <option value="https://www.example2.com">Example 2</option>
+        <!-- Add more options as needed -->
+    </select>
+
+    <script>
+        function changeURL() {
+            var dropdown = document.getElementById("urlSelector");
+            var selectedURL = dropdown.options[dropdown.selectedIndex].value;
+
+            // Hide default content and display dynamic content
+            document.getElementById("defaultContent").setAttribute("visible", "false");
+            document.getElementById("dynamicContent").setAttribute("visible", "true");
+
+            // Set the dynamic text content based on the selected URL
+            document.getElementById("dynamicText").setAttribute("value", selectedURL);
+
+            // You can further customize this to load specific AR content based on the selected URL
+            // For simplicity, this example just displays the selected URL as text.
+        }
+    </script>
+
+</body>
+</html>
