@@ -1,37 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AR Food Menu</title>
-
-    <!-- A-Frame and MindAR.js libraries -->
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.2/dist/mindar-image-aframe.prod.js"></script>
-</head>
-<body>
-
-    <!-- AR Scene -->
-    <a-scene mindar-image="imageTargetSrc: /Assets/targets.mind;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
-
-        <!-- Switchable URL based on dropdown selection -->
-        <a-entity id="urlContainer">
-            <!-- Default URL (change this as needed) -->
-            <a-entity id="defaultContent" geometry="primitive: plane; width: 5; height: 3" material="color: white" position="0 2 -5">
-                <a-text value="Default Content" align="center" position="0 0 0.1" color="black"></a-text>
-            </a-entity>
-
-            <!-- URL content loaded dynamically -->
-            <a-entity id="dynamicContent" geometry="primitive: plane; width: 5; height: 3" material="color: white" position="0 2 -5" visible="false">
-                <a-text id="dynamicText" align="center" position="0 0 0.1" color="black"></a-text>
-            </a-entity>
-        </a-entity>
-    </a-scene>
-
-    <!-- Dropdown for URL selection -->
-    <label for="urlSelector">Select a DISH:</label>
-    <select id="urlSelector" onchange="changeURL()">
+  </head>
+  <body>
+    <label for="modelSelector">Select a 3D Model:</label>
+    <select id="modelSelector" onchange="changeModel()">
         <option value="/Assets/models/biryani.glb">Briyani</option>
         <option value="/Assets/models/brazil.glb">Brazil Food</option>
         <option value="/Assets/models/breakfast.glb">Breakfast Food</option>
@@ -44,25 +20,27 @@
         <option value="/Assets/models/sandwich.glb">Sandwich</option>
         <option value="/Assets/models/cake.glb">Strawberry Cake</option>
         <option value="/Assets/models/chicken.glb">Tandoori Chicken</option>
-        <!-- Add more options as needed -->
+      <!-- Add more options as needed -->
     </select>
 
+    <a-scene mindar-image="imageTargetSrc: Assets/targets.mind;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+      <a-assets>
+        <a-asset-item id="Model" src="/Assets/models/biryani.glb"></a-asset-item>
+      </a-assets>
+
+      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+
+      <a-entity mindar-image-target="targetIndex: 0">
+        <a-gltf-model rotation="0 0 0 " position="0 -0.25 0" scale="0.05 0.05 0.05" src="#raccoonModel" animation-mixer>
+      </a-entity>
+    </a-scene>
+
     <script>
-        function changeURL() {
-            var dropdown = document.getElementById("urlSelector");
-            var selectedURL = dropdown.options[dropdown.selectedIndex].value;
-
-            // Hide default content and display dynamic content
-            document.getElementById("defaultContent").setAttribute("visible", "false");
-            document.getElementById("dynamicContent").setAttribute("visible", "true");
-
-            // Set the dynamic text content based on the selected URL
-            document.getElementById("dynamicText").setAttribute("value", selectedURL);
-
-            // You can further customize this to load specific AR content based on the selected URL
-            // For simplicity, this example just displays the selected URL as text.
-        }
+      function changeModel() {
+        var dropdown = document.getElementById("modelSelector");
+        var selectedModel = dropdown.options[dropdown.selectedIndex].value;
+        document.getElementById("Model").setAttribute("src", selectedModel);
+      }
     </script>
-
-</body>
+  </body>
 </html>
