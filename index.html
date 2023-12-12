@@ -1,21 +1,28 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-   
- 
-
-        <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
-        <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
-        <script src="https://raw.githack.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
-        <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-detector.js"></script>
-        <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-handler.js"></script>
-        <script>
+   <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.2/dist/mindar-image-aframe.prod.js"></script>
+    <script>
       function changeModel() {
         var dropdown = document.getElementById("modelSelector");
         var selectedModel = dropdown.options[dropdown.selectedIndex].value;
         document.getElementById("Model").setAttribute("src", selectedModel);
       }
+
+       AFRAME.registerComponent('mytarget', {
+        init: function () {
+          this.el.addEventListener('targetFound', event => {
+            console.log("target found");
+          });
+          this.el.addEventListener('targetLost', event => {
+            console.log("target Lost");
+          });
+          //this.el.emit('targetFound');
+        }
+      });
     </script>
+  
   </head>
   <body>
     <label for="modelSelector">Select a 3D Model:</label>
