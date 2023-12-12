@@ -1,62 +1,52 @@
-<!-- import aframe and then ar.js with image tracking / location based features -->
-<script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1c2407b26c61958baa93967b5412487cd94b290b/dist/aframe-master.min.js"></script>
-<script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+   
+ 
 
-<!-- style for the loader -->
-<style>
-  .arjs-loader {
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.8);
-    z-index: 9999;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+        <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+        <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+        <script src="https://raw.githack.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
+        <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-detector.js"></script>
+        <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-handler.js"></script>
+        <script>
+      function changeModel() {
+        var dropdown = document.getElementById("modelSelector");
+        var selectedModel = dropdown.options[dropdown.selectedIndex].value;
+        document.getElementById("Model").setAttribute("src", selectedModel);
+      }
+    </script>
+  </head>
+  <body>
+    <label for="modelSelector">Select a 3D Model:</label>
+    <select id="modelSelector" onchange="changeModel()">
+        <option value="./Assets/models/biryani.glb">Briyani</option>
+        <option value="./Assets/models/brazil.glb">Brazil Food</option>
+        <option value="./Assets/models/breakfast.glb">Breakfast Food</option>
+        <option value="./Assets/models/burger.glb">Burger</option>
+        <option value="./Assets/models/cappuccino.glb">Cappuccino</option>
+        <option value="./Assets/models/dal.glb">Dal Takda and Naan</option>
+        <option value="./Assets/models/french.glb">French Fries</option>
+        <option value="./Assets/models/momo.glb">Momos</option>
+        <option value="./Assets/models/pizza.glb">Pizza</option>
+        <option value="./Assets/models/sandwich.glb">Sandwich</option>
+        <option value="./Assets/models/cake.glb">Strawberry Cake</option>
+        <option value="./Assets/models/chicken.glb">Tandoori Chicken</option>
+      
+  </select>
+    
+    <a-scene mindar-image="imageTargetSrc: Assets/targets.mind;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+      <a-assets>
+        <a-asset-item id="Model" src="./Assets/models/biryani.glb"></a-asset-item>
+      </a-assets>
 
-  .arjs-loader div {
-    text-align: center;
-    font-size: 1.25em;
-    color: white;
-  }
-</style>
+      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
-<body style="margin : 0px; overflow: hidden;">
-  <!-- minimal loader shown until image descriptors are loaded. Loading may take a while according to the device computational power -->
-  <div class="arjs-loader">
-    <div>Loading, please wait...</div>
-  </div>
-
-  <!-- a-frame scene -->
-  <a-scene
-    vr-mode-ui="enabled: false;"
-    renderer="logarithmicDepthBuffer: true;"
-    embedded
-    arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: false;"
-  >
-    <!-- a-nft is the anchor that defines an Image Tracking entity -->
-    <!-- on 'url' use the path to the Image Descriptors created before. -->
-    <!-- the path should end with the name without the extension e.g. if file is 'pinball.fset' the path should end with 'pinball' -->
-    <a-nft
-      type="nft"
-      url="./Assets/marker/marker"
-      smooth="true"
-      smoothCount="10"
-      smoothTolerance=".01"
-      smoothThreshold="5"
-    >
-      <!-- as a child of the a-nft entity, you can define the content to show. here's a GLTF model entity -->
-      <a-entity
-        gltf-model="./Assets/models/burger.glb"
-        scale="1 1 1"
-        position="0 0 0"
-      >
+      <a-entity mindar-image-target="targetIndex: 0">
+        <a-gltf-model rotation="0 0 0 " position="0 0 0" scale="0.05 0.05 0.05" src="#Model" animation-mixer>
       </a-entity>
-    </a-nft>
-    <!-- static camera that moves according to the device movemenents -->
-    <a-entity camera></a-entity>
-  </a-scene>
-</body>
+    </a-scene>
+
+    
+  </body>
+</html>
